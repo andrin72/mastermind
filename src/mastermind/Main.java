@@ -24,7 +24,6 @@ public class Main {
 	//initializes most important variables in the beginning of the game
 	private void init() {
 		
-		inputStreamReader = new InputStreamReader(System.in);
 		random = new Random();
 		
 		secretCodeGenerated = new char[4];
@@ -40,16 +39,18 @@ public class Main {
 		
 		System.out.print("Geben Sie den Code ein: ");
 		
-		
-		
+				
 		do {
+			
 			try {
 				readUserInput();
+					
 			} catch (IOException e) {
 
 				e.printStackTrace();
-				
+					
 			}
+			
 		} while (!validateInput());
 		
 		printCodeInput();
@@ -59,12 +60,12 @@ public class Main {
 	}
 	
 	//Reads user input in form of 4 chars which are stored in an array
-	private char readUserInput() throws IOException {
+	private void readUserInput() throws IOException {
 		
-		char input;
+		inputStreamReader = new InputStreamReader(System.in);
 		inputStreamReader.read(secretCodeInput, 0, 4);
-		return 0;
 		
+				
 	}
 	
 	//Returns random number
@@ -100,15 +101,15 @@ public class Main {
 	}
 	
 	
-	//Validates input and returns if the validation was succesful (true) or not (fals)
-	//Has to be fixed -> runs loop 4 times no matter if it was succesful or not
+	//Validates input and returns if the validation was succesful (true) or not (false)
 	private boolean validateInput() {
 		
 		for (int j = 0; j < secretCodeInput.length; j++) {
 			
 				if (secretCodeInput[j] != COLORS[0] && secretCodeInput[j] != COLORS[1] && secretCodeInput[j] != COLORS[2] && secretCodeInput[j] != COLORS[3] && secretCodeInput[j] != COLORS[4] && secretCodeInput[j] != COLORS[5]) {
 					
-					System.out.println("In dem eingegeben Code sind Fehler vorhanden, bitte wiederholen: ");
+					System.out.print("Die Eingabe war nicht korrekt, bitte versuchen Sie es erneut: ");
+					
 					return false;
 					
 				}
