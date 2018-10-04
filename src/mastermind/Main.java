@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
+import mastermind.strings.Strings;
+
 public class Main {
 	
 	//declarations of variables
@@ -37,9 +39,79 @@ public class Main {
 		
 		printCodeGenerated();
 		
-		System.out.print("Geben Sie den Code ein: ");
+		readUserCode();
 		
+		evaluateUserCode();
+		
+		
+		
+	}
+	
+	private void runGame() {
+		
+		
+		
+	}
+	
+	//evaluates code from the user
+	private void evaluateUserCode() {
+		
+		int correctPosition = 0;
+		int correctColor = 0;
+		char[] temp = new char[4];
+		boolean test;
+		int countAmount;
+		
+		for (int i = 0; i < secretCodeGenerated.length; i++) {
+			
+			countAmount = 0;
+			
+			for (int j = 0; j < secretCodeInput.length; j++) {
 				
+				if(secretCodeInput[j] == secretCodeGenerated[i]) {
+					
+					if(i == j) {
+						
+						correctPosition++;
+						temp[j] = secretCodeInput[j];
+						
+					} else {
+						
+						test = true;
+						
+						for (int k = 0; k < temp.length; k++) {
+							
+							if(secretCodeInput[j] == temp[k]) {
+								test = false;
+							}
+							
+						}
+						
+						if(test && countAmount < 1) {
+							correctColor++;
+							}
+						
+						countAmount++;
+						
+					}
+					
+				}
+				
+			}
+			
+			
+			
+		}
+		
+		Strings.createEvaluationDialogue(correctPosition, correctColor);
+		
+	}
+	
+	private void readUserCode() {
+		
+		System.out.print(Strings.codeInput);
+		
+		
 		do {
 			
 			try {
@@ -53,13 +125,15 @@ public class Main {
 			
 		} while (!validateInput());
 		
+		Strings.createPlaceHolder("Der eingegebene Code lautet:", false);
+		System.out.println("Der eingegebene Code lautet: ");
+		System.out.println("----------------------------");
 		printCodeInput();
-		
-		
+		System.out.println("----");
 		
 	}
 	
-	//Reads user input in form of 4 chars which are stored in an array
+	//reads user input in form of 4 chars which are stored in an array
 	private void readUserInput() throws IOException {
 		
 		inputStreamReader = new InputStreamReader(System.in);
@@ -68,7 +142,7 @@ public class Main {
 				
 	}
 	
-	//Returns random number
+	//returns random number
 	private int getRandomNumber(int min, int max) {
 		
 	    int randomNumber = random.nextInt((max - min) + 1) + min;
@@ -76,6 +150,7 @@ public class Main {
 		
 	}
 	
+	//prints generated code
 	private void printCodeGenerated() {
 		
 		for (int i = 0; i < secretCodeGenerated.length ; i++) {
@@ -88,6 +163,7 @@ public class Main {
 		
 	}
 	
+	//prints code by user
 	private void printCodeInput() {
 		
 		for (int i = 0; i < 4; i++) {
@@ -108,7 +184,7 @@ public class Main {
 			
 				if (secretCodeInput[j] != COLORS[0] && secretCodeInput[j] != COLORS[1] && secretCodeInput[j] != COLORS[2] && secretCodeInput[j] != COLORS[3] && secretCodeInput[j] != COLORS[4] && secretCodeInput[j] != COLORS[5]) {
 					
-					System.out.print("Die Eingabe war nicht korrekt, bitte versuchen Sie es erneut: ");
+					System.out.print(Strings.codeInputInvalid);
 					
 					return false;
 					
