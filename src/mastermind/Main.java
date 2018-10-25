@@ -125,7 +125,7 @@ public class Main {
 			
 		} while (!validateInput());
 		
-		Strings.createPlaceHolder("Der eingegebene Code lautet:", false);
+		Strings.createPlaceHolder("Der eingegebene Code lautet:", 0);
 		System.out.println("Der eingegebene Code lautet: ");
 		System.out.println("----------------------------");
 		printCodeInput();
