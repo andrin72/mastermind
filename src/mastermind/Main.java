@@ -8,12 +8,13 @@ import mastermind.strings.Strings;
 
 public class Main {
 	
-	//declarations of variables
+	//declarations of global variables
 	private Random random;
 	private static final char[] COLORS = new char[] {'r', 'g', 'b', 'y', 'w', 's' };
 	private char[] secretCodeGenerated;
 	private char[] secretCodeInput;
 	private InputStreamReader inputStreamReader;
+	private boolean secretCodeDecrypted;
 	
 	//creates instance and calls init() method
 	public static void main(String[] args) {
@@ -21,15 +22,19 @@ public class Main {
 		Main instance = new Main();
 		instance.init();
 		
+		
 	}
 	
 	//initializes most important variables in the beginning of the game
 	private void init() {
 		
+		System.out.println("Willkommen zu dem Spiel Mastermind!".length());
+		
 		random = new Random();
 		
 		secretCodeGenerated = new char[4];
 		secretCodeInput = new char[4];
+		secretCodeDecrypted = false;
 		
 		for (int i = 0; i < 4; i++) {
 			
@@ -39,16 +44,26 @@ public class Main {
 		
 		printCodeGenerated();
 		
-		readUserCode();
-		
-		evaluateUserCode();
-		
-		
+		runGame();
 		
 	}
 	
 	private void runGame() {
 		
+		System.out.println(Strings.gameExplanation1);
+		System.out.println(Strings.createPlaceHolder("", 35));
+		System.out.println(Strings.gameExplanation2);
+		System.out.println(Strings.createPlaceHolder("", 35));
+		
+		
+		while(!secretCodeDecrypted) {
+			
+			readUserCode();
+			evaluateUserCode();
+			
+		}
+		
+		System.out.println(Strings.gameFinished);
 		
 		
 	}
@@ -105,10 +120,17 @@ public class Main {
 		
 		Strings.createEvaluationDialogue(correctPosition, correctColor);
 		
+		if(correctPosition == 4) {
+			
+			secretCodeDecrypted = true;
+			
+		}
+		
 	}
 	
 	private void readUserCode() {
 		
+		System.out.println(Strings.availableColors);
 		System.out.print(Strings.codeInput);
 		
 		
@@ -124,12 +146,6 @@ public class Main {
 			}
 			
 		} while (!validateInput());
-		
-		Strings.createPlaceHolder("Der eingegebene Code lautet:", 0);
-		System.out.println("Der eingegebene Code lautet: ");
-		System.out.println("----------------------------");
-		printCodeInput();
-		System.out.println("----");
 		
 	}
 	
