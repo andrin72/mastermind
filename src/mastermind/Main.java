@@ -126,6 +126,18 @@ public class Main {
 			
 		}
 		
+		
+		
+	}
+	
+	private void cheat(char[] secretCodeInput) {
+		
+		if(secretCodeInput[0] == 's' && secretCodeInput[1] == 'h' && secretCodeInput[2] == 'o' && secretCodeInput[3] == 'w') {
+			
+			printCodeGenerated();
+			
+		}
+		
 	}
 	
 	private void readUserCode() {
@@ -195,6 +207,9 @@ public class Main {
 	
 	//Validates input and returns if the validation was succesful (true) or not (false)
 	private boolean validateInput() {
+		
+		//for developing purposes
+		cheat(secretCodeInput);
 		
 		for (int j = 0; j < secretCodeInput.length; j++) {
 			
